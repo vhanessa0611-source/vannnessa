@@ -23,6 +23,35 @@
         }
     </script>
     <style>
+        :root {
+            --theme-primary: #4f46e5;
+            --theme-primary-dark: #4338ca;
+            --theme-primary-soft: #eef2ff;
+            --theme-primary-soft-strong: #c7d2fe;
+            --theme-primary-text: #4338ca;
+        }
+
+        body.theme-indigo { --theme-primary: #4f46e5; --theme-primary-dark: #4338ca; --theme-primary-soft: #eef2ff; --theme-primary-soft-strong: #c7d2fe; --theme-primary-text: #4338ca; }
+        body.theme-emerald { --theme-primary: #10b981; --theme-primary-dark: #059669; --theme-primary-soft: #d1fae5; --theme-primary-soft-strong: #a7f3d0; --theme-primary-text: #047857; }
+        body.theme-violet { --theme-primary: #8b5cf6; --theme-primary-dark: #7c3aed; --theme-primary-soft: #f3e8ff; --theme-primary-soft-strong: #ddd6fe; --theme-primary-text: #6d28d9; }
+        body.theme-amber { --theme-primary: #f59e0b; --theme-primary-dark: #d97706; --theme-primary-soft: #fef3c7; --theme-primary-soft-strong: #fde68a; --theme-primary-text: #b45309; }
+        body.theme-rose { --theme-primary: #f43f5e; --theme-primary-dark: #e11d48; --theme-primary-soft: #ffe4e6; --theme-primary-soft-strong: #fecdd3; --theme-primary-text: #be123c; }
+        body.theme-cyan { --theme-primary: #06b6d4; --theme-primary-dark: #0891b2; --theme-primary-soft: #cffafe; --theme-primary-soft-strong: #a5f3fc; --theme-primary-text: #0e7490; }
+        body.theme-blue { --theme-primary: #3b82f6; --theme-primary-dark: #2563eb; --theme-primary-soft: #dbeafe; --theme-primary-soft-strong: #bfdbfe; --theme-primary-text: #1d4ed8; }
+        body.theme-teal { --theme-primary: #14b8a6; --theme-primary-dark: #0f766e; --theme-primary-soft: #ccfbf1; --theme-primary-soft-strong: #99f6e4; --theme-primary-text: #115e59; }
+        body.theme-fuchsia { --theme-primary: #d946ef; --theme-primary-dark: #c026d3; --theme-primary-soft: #fae8ff; --theme-primary-soft-strong: #f5d0fe; --theme-primary-text: #a21caf; }
+        body.theme-sky { --theme-primary: #0ea5e9; --theme-primary-dark: #0284c7; --theme-primary-soft: #e0f2fe; --theme-primary-soft-strong: #bae6fd; --theme-primary-text: #0369a1; }
+        body.theme-lime { --theme-primary: #84cc16; --theme-primary-dark: #65a30d; --theme-primary-soft: #ecfccb; --theme-primary-soft-strong: #d9f99d; --theme-primary-text: #4d7c0f; }
+        body.theme-orange { --theme-primary: #f97316; --theme-primary-dark: #ea580c; --theme-primary-soft: #ffedd5; --theme-primary-soft-strong: #fed7aa; --theme-primary-text: #c2410c; }
+        body.theme-purple { --theme-primary: #a855f7; --theme-primary-dark: #9333ea; --theme-primary-soft: #f3e8ff; --theme-primary-soft-strong: #e9d5ff; --theme-primary-text: #7e22ce; }
+        body.theme-slate { --theme-primary: #475569; --theme-primary-dark: #334155; --theme-primary-soft: #f1f5f9; --theme-primary-soft-strong: #cbd5e1; --theme-primary-text: #1e293b; }
+        body.theme-zinc { --theme-primary: #71717a; --theme-primary-dark: #52525b; --theme-primary-soft: #f4f4f5; --theme-primary-soft-strong: #e4e4e7; --theme-primary-text: #3f3f46; }
+        body.theme-red { --theme-primary: #ef4444; --theme-primary-dark: #dc2626; --theme-primary-soft: #fee2e2; --theme-primary-soft-strong: #fecaca; --theme-primary-text: #b91c1c; }
+        body.theme-green { --theme-primary: #22c55e; --theme-primary-dark: #16a34a; --theme-primary-soft: #dcfce7; --theme-primary-soft-strong: #bbf7d0; --theme-primary-text: #15803d; }
+        body.theme-yellow { --theme-primary: #eab308; --theme-primary-dark: #ca8a04; --theme-primary-soft: #fef9c3; --theme-primary-soft-strong: #fde68a; --theme-primary-text: #a16207; }
+        body.theme-stone { --theme-primary: #a16207; --theme-primary-dark: #854d0e; --theme-primary-soft: #fef3c7; --theme-primary-soft-strong: #fde68a; --theme-primary-text: #713f12; }
+        body.theme-neutral { --theme-primary: #6b7280; --theme-primary-dark: #4b5563; --theme-primary-soft: #f3f4f6; --theme-primary-soft-strong: #e5e7eb; --theme-primary-text: #374151; }
+
         /* Custom scrollbar and sleek transition defaults */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -869,6 +898,70 @@
             }
         }
 
+        function applyThemeStyles() {
+            const palette = {
+                indigo: { primary: '#4f46e5', primaryDark: '#4338ca', soft: '#eef2ff', softStrong: '#c7d2fe', accentText: '#4338ca' },
+                emerald: { primary: '#10b981', primaryDark: '#059669', soft: '#d1fae5', softStrong: '#a7f3d0', accentText: '#047857' },
+                violet: { primary: '#8b5cf6', primaryDark: '#7c3aed', soft: '#f3e8ff', softStrong: '#ddd6fe', accentText: '#6d28d9' },
+                amber: { primary: '#f59e0b', primaryDark: '#d97706', soft: '#fef3c7', softStrong: '#fde68a', accentText: '#b45309' },
+                rose: { primary: '#f43f5e', primaryDark: '#e11d48', soft: '#ffe4e6', softStrong: '#fecdd3', accentText: '#be123c' },
+                cyan: { primary: '#06b6d4', primaryDark: '#0891b2', soft: '#cffafe', softStrong: '#a5f3fc', accentText: '#0e7490' },
+                blue: { primary: '#3b82f6', primaryDark: '#2563eb', soft: '#dbeafe', softStrong: '#bfdbfe', accentText: '#1d4ed8' },
+                teal: { primary: '#14b8a6', primaryDark: '#0f766e', soft: '#ccfbf1', softStrong: '#99f6e4', accentText: '#115e59' },
+                fuchsia: { primary: '#d946ef', primaryDark: '#c026d3', soft: '#fae8ff', softStrong: '#f5d0fe', accentText: '#a21caf' },
+                sky: { primary: '#0ea5e9', primaryDark: '#0284c7', soft: '#e0f2fe', softStrong: '#bae6fd', accentText: '#0369a1' },
+                lime: { primary: '#84cc16', primaryDark: '#65a30d', soft: '#ecfccb', softStrong: '#d9f99d', accentText: '#4d7c0f' },
+                orange: { primary: '#f97316', primaryDark: '#ea580c', soft: '#ffedd5', softStrong: '#fed7aa', accentText: '#c2410c' },
+                purple: { primary: '#a855f7', primaryDark: '#9333ea', soft: '#f3e8ff', softStrong: '#e9d5ff', accentText: '#7e22ce' },
+                slate: { primary: '#475569', primaryDark: '#334155', soft: '#f1f5f9', softStrong: '#cbd5e1', accentText: '#1e293b' },
+                zinc: { primary: '#71717a', primaryDark: '#52525b', soft: '#f4f4f5', softStrong: '#e4e4e7', accentText: '#3f3f46' },
+                red: { primary: '#ef4444', primaryDark: '#dc2626', soft: '#fee2e2', softStrong: '#fecaca', accentText: '#b91c1c' },
+                green: { primary: '#22c55e', primaryDark: '#16a34a', soft: '#dcfce7', softStrong: '#bbf7d0', accentText: '#15803d' },
+                yellow: { primary: '#eab308', primaryDark: '#ca8a04', soft: '#fef9c3', softStrong: '#fde68a', accentText: '#a16207' },
+                stone: { primary: '#a16207', primaryDark: '#854d0e', soft: '#fef3c7', softStrong: '#fde68a', accentText: '#713f12' },
+                neutral: { primary: '#6b7280', primaryDark: '#4b5563', soft: '#f3f4f6', softStrong: '#e5e7eb', accentText: '#374151' }
+            };
+
+            const activePalette = palette[appState.theme] || palette.indigo;
+            document.body.classList.remove(...Array.from(document.body.classList).filter(cls => cls.startsWith('theme-')));
+            document.body.classList.add(`theme-${appState.theme}`);
+            document.documentElement.style.setProperty('--theme-primary', activePalette.primary);
+            document.documentElement.style.setProperty('--theme-primary-dark', activePalette.primaryDark);
+            document.documentElement.style.setProperty('--theme-primary-soft', activePalette.soft);
+            document.documentElement.style.setProperty('--theme-primary-soft-strong', activePalette.softStrong);
+            document.documentElement.style.setProperty('--theme-primary-text', activePalette.accentText);
+
+            const rules = [
+                { selectors: ['.bg-indigo-600', '.bg-indigo-500'], style: 'backgroundColor', value: activePalette.primary },
+                { selectors: ['.bg-indigo-50', '.bg-indigo-100'], style: 'backgroundColor', value: activePalette.soft },
+                { selectors: ['.text-indigo-600', '.text-indigo-700', '.text-indigo-800'], style: 'color', value: activePalette.accentText },
+                { selectors: ['.border-indigo-200', '.border-indigo-100'], style: 'borderColor', value: activePalette.softStrong },
+                { selectors: ['.ring-indigo-500'], style: 'boxShadow', value: `0 0 0 2px ${activePalette.soft}` },
+                { selectors: ['.text-indigo-500'], style: 'color', value: activePalette.primary }
+            ];
+
+            const applied = new Set();
+            rules.forEach(rule => {
+                rule.selectors.forEach(selector => {
+                    document.querySelectorAll(selector).forEach(el => {
+                        if (!applied.has(el)) {
+                            el.style[rule.style] = rule.value;
+                            applied.add(el);
+                        }
+                    });
+                });
+            });
+
+            document.querySelectorAll('.nav-btn, .nav-btn i').forEach(el => {
+                if (el.classList.contains('text-indigo-600')) {
+                    el.style.color = activePalette.accentText;
+                }
+                if (el.classList.contains('bg-indigo-50')) {
+                    el.style.backgroundColor = activePalette.soft;
+                }
+            });
+        }
+
         function initThemeAndFont() {
             document.getElementById('brand-title').innerText = appState.brandTitle;
             document.getElementById('settings-brand-title-input').value = appState.brandTitle;
@@ -893,6 +986,7 @@
             let fontLink = document.getElementById('google-fonts-link');
             fontLink.href = `https://fonts.googleapis.com/css2?family=${appState.font.replace(/ /g, '+')}:wght@300;400;500;600;700&display=swap`;
             document.body.style.fontFamily = `'${appState.font}', sans-serif`;
+            applyThemeStyles();
         }
 
         function saveSettings() {
@@ -954,12 +1048,14 @@
             document.getElementById('global-week-display').innerText = weekLabel;
             document.getElementById('schedule-active-week-badge').innerText = weekLabel;
 
+            applyThemeStyles();
             renderDashboard();
             renderStudentsList();
             renderScheduleGrid();
             renderPayments();
             renderClassRecords();
             renderReports();
+            applyThemeStyles();
         }
 
         function renderDashboard() {
