@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
@@ -186,20 +186,19 @@
                 <!-- 1. DASHBOARD TAB -->
                 <div id="tab-dashboard" class="tab-content active space-y-6">
                     <!-- Greeting & Quote Banner -->
-                    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-6 text-white shadow-md relative overflow-hidden">
-                        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
-                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <h2 id="greeting-heading" class="text-2xl font-bold tracking-tight">Good morning, Teacher!</h2>
-                                <p id="dashboard-date-sub" class="text-indigo-100 text-sm mt-1">Today is Sunday, September 27, 2026</p>
+                    <div class="rounded-[28px] p-6 text-white shadow-md relative overflow-hidden bg-gradient-to-r from-[#5d4ae6] via-[#4f46e5] to-[#6f46d8]">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.18),_transparent_42%)]"></div>
+                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+                            <div class="flex-1">
+                                <h2 id="greeting-heading" class="text-3xl md:text-5xl font-bold tracking-tight leading-tight">Good afternoon, Teacher!</h2>
+                                <p id="dashboard-date-sub" class="text-white/90 text-base md:text-lg mt-3">Today is Monday, September 28, 2026</p>
                             </div>
-                            <!-- Editable Quote Box -->
-                            <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-md">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-200">Inspirational Quote</span>
-                                    <button onclick="editInspirationalQuote()" class="text-xs text-white/80 hover:text-white underline">Edit</button>
+                            <div class="w-full max-w-[420px] rounded-2xl border border-white/30 bg-white/10 backdrop-blur-md p-4 shadow-inner">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-white/75">Inspirational Quote</span>
+                                    <button onclick="editInspirationalQuote()" class="text-sm font-medium text-white/85 hover:text-white underline">Edit</button>
                                 </div>
-                                <p id="inspirational-quote-text" class="text-sm italic text-white/90">"Education is the passport to the future, for tomorrow belongs to those who prepare for it today."</p>
+                                <p id="inspirational-quote-text" class="text-base md:text-lg italic text-white/90 leading-relaxed">"Education is the passport to the future, for tomorrow belongs to those who prepare for it today."</p>
                             </div>
                         </div>
                     </div>
@@ -474,8 +473,11 @@
                                 <input type="text" id="settings-brand-title-input" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="ESL Teacher Dashboard">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Profile Picture Image URL</label>
-                                <input type="text" id="settings-avatar-url-input" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="https://example.com/photo.jpg">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Profile Picture</label>
+                                <div class="space-y-2">
+                                    <input type="file" id="settings-avatar-upload" accept="image/*" class="block w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:bg-indigo-100 file:text-indigo-700 file:font-semibold file:cursor-pointer">
+                                    <input type="text" id="settings-avatar-url-input" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Or paste image URL here">
+                                </div>
                             </div>
                         </div>
 
@@ -830,6 +832,8 @@
             "VUV", "WST", "XAF", "XCD", "XOF", "XPF", "YER", "ZAR", "ZMW"
         ];
 
+        const COMMON_EXCHANGE_CURRENCIES = ["PHP", "USD", "EUR", "JPY", "KRW", "CNY", "GBP", "AUD", "CAD", "SGD", "THB", "VND", "INR", "MYR", "HKD"];
+
         const DEFAULT_EXCHANGE_RATES = {
             USD: 56.50,
             JPY: 0.38,
@@ -1052,6 +1056,23 @@
             }
         }
 
+        function handleAvatarUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const result = e.target && e.target.result;
+                if (!result) return;
+                document.getElementById('settings-avatar-url-input').value = result;
+                appState.avatarUrl = result;
+                initThemeAndFont();
+                saveState();
+                showToast('Profile photo updated successfully!');
+            };
+            reader.readAsDataURL(file);
+        }
+
         function applyThemeStyles() {
             const palette = {
                 indigo: { primary: '#4f46e5', primaryDark: '#4338ca', soft: '#eef2ff', softStrong: '#c7d2fe', accentText: '#4338ca' },
@@ -1155,6 +1176,13 @@
             showToast("Settings saved successfully!");
         }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadInput = document.getElementById('settings-avatar-upload');
+            if (uploadInput) {
+                uploadInput.addEventListener('change', handleAvatarUpload);
+            }
+        });
+
         function saveExchangeRate() {
             const currency = document.getElementById('exchange-rate-currency-select')?.value;
             const value = parseFloat(document.getElementById('exchange-rate-value-input')?.value);
@@ -1229,7 +1257,7 @@
 
             let weekRevenue = 0;
             weekClasses.forEach(c => {
-                if (c.attendance === 'Present') {
+                if (c.attendance === 'Present' || c.attendance === 'Absent') {
                     weekRevenue += computeClassPHP(c);
                 }
             });
@@ -1707,12 +1735,14 @@
 
         function renderPayments() {
             let container = document.getElementById('payments-groups-container');
-            
-            // Group classes by student and weekly intervals (Monday of that week)
-            let studentWeeks = {}; // key: studentId_mondayStr -> { studentId, mondayStr, classes: [] }
+            const selectedMonday = formatDateStr(getMonday(appState.currentSelectedWeekStart || new Date()));
 
+            let studentWeeks = {};
             appState.classes.forEach(c => {
+                if (c.attendance === 'Cancelled') return;
                 let mon = formatDateStr(getMonday(c.date));
+                if (mon !== selectedMonday) return;
+
                 let key = `${c.studentId}_${mon}`;
                 if (!studentWeeks[key]) {
                     studentWeeks[key] = { studentId: c.studentId, mondayStr: mon, classes: [] };
@@ -1722,7 +1752,7 @@
 
             let groupKeys = Object.keys(studentWeeks);
             if (groupKeys.length === 0) {
-                container.innerHTML = `<div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-400 text-sm">No payment records available.</div>`;
+                container.innerHTML = `<div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-400 text-sm">No payment records available for the selected week.</div>`;
                 document.getElementById('payments-total-sum-badge').innerText = "Total: ₱0.00";
                 return;
             }
@@ -1740,7 +1770,7 @@
 
                 let weeklyPHP = 0;
                 group.classes.forEach(c => {
-                    if (c.attendance === 'Present') {
+                    if (c.attendance === 'Present' || c.attendance === 'Absent') {
                         weeklyPHP += computeClassPHP(c);
                     }
                 });
@@ -1794,7 +1824,7 @@
                             <td class="py-2.5 font-medium text-slate-800">${c.date} at ${c.time}</td>
                             <td class="py-2.5 text-slate-600">${c.type}</td>
                             <td class="py-2.5 text-slate-600">${c.duration} mins</td>
-                            <td class="py-2.5 font-semibold ${c.attendance === 'Present' ? 'text-emerald-600' : 'text-slate-500'}">${c.attendance}</td>
+                            <td class="py-2.5 font-semibold ${c.attendance === 'Present' ? 'text-emerald-600' : c.attendance === 'Absent' ? 'text-amber-600' : 'text-slate-500'}">${c.attendance}</td>
                             <td class="py-2.5 text-right font-bold text-slate-900">₱${phpAmt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                         </tr>
                     `;
@@ -1897,7 +1927,7 @@
             let totalPresentOrAbsent = monthClasses.filter(c => c.attendance === 'Present' || c.attendance === 'Absent').length;
 
             monthClasses.forEach(c => {
-                if (c.attendance === 'Present') {
+                if (c.attendance === 'Present' || c.attendance === 'Absent') {
                     monthlyRevenue += computeClassPHP(c);
                 }
             });
@@ -1912,7 +1942,7 @@
             // Company breakdown
             let companyRevenue = {};
             monthClasses.forEach(c => {
-                if (c.attendance === 'Present') {
+                if (c.attendance === 'Present' || c.attendance === 'Absent') {
                     let st = appState.students.find(s => s.id === c.studentId);
                     let comp = st ? st.company : 'Independent';
                     companyRevenue[comp] = (companyRevenue[comp] || 0) + computeClassPHP(c);
@@ -1949,7 +1979,7 @@
 
             if (currencySelect) {
                 const currentValue = currencySelect.value || 'PHP';
-                currencySelect.innerHTML = currencyCodes.map(cur => `<option value="${cur}">${cur} - ${cur === 'PHP' ? 'Philippine Peso' : cur}</option>`).join('');
+                currencySelect.innerHTML = currencyCodes.map(cur => `<option value="${cur}">${cur}${cur === 'PHP' ? ' - Philippine Peso' : ''}</option>`).join('');
                 currencySelect.value = currencyCodes.includes(currentValue) ? currentValue : 'PHP';
             }
 
@@ -1965,13 +1995,16 @@
             const container = document.getElementById('exchange-rates-container');
             if (!container) return;
 
-            const currencyCodes = Array.from(new Set([...ALL_CURRENCIES, ...Object.keys(appState.exchangeRates || {})])).sort();
-            const rows = currencyCodes.map(cur => {
+            const visibleCodes = COMMON_EXCHANGE_CURRENCIES.filter(cur =>
+                ALL_CURRENCIES.includes(cur) || Object.prototype.hasOwnProperty.call(appState.exchangeRates || {}, cur)
+            );
+
+            const rows = visibleCodes.map(cur => {
                 const value = Number(appState.exchangeRates?.[cur] ?? DEFAULT_EXCHANGE_RATES[cur] ?? 1);
                 return `
-                    <button type="button" data-currency="${cur}" class="exchange-rate-row flex items-center justify-between w-full px-5 py-4 border-b border-slate-100 text-left hover:bg-slate-50 transition">
-                        <span class="font-bold text-slate-700 text-xl tracking-wide">${cur}</span>
-                        <span class="text-base font-semibold text-slate-600">${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 })} PHP</span>
+                    <button type="button" data-currency="${cur}" class="exchange-rate-row flex items-center justify-between w-full px-4 py-3 border-b border-slate-100 text-left hover:bg-slate-50 transition">
+                        <span class="font-bold text-slate-700 text-sm tracking-wide">${cur}</span>
+                        <span class="text-sm font-semibold text-slate-600">${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 })} PHP</span>
                     </button>
                 `;
             }).join('');
