@@ -59,6 +59,34 @@
         ::-webkit-scrollbar-thumb:hover { background: rgba(107, 114, 128, 0.8); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+
+        .nav-btn {
+            background-color: transparent;
+            color: #475569;
+        }
+
+        .nav-btn i {
+            color: inherit;
+        }
+
+        .nav-btn:hover:not(.active) {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .nav-btn.active {
+            background-color: var(--theme-primary-soft);
+            color: var(--theme-primary-text);
+        }
+
+        .nav-btn.active i {
+            color: var(--theme-primary-text);
+        }
+
+        .nav-btn.active:hover {
+            background-color: var(--theme-primary-soft);
+            color: var(--theme-primary-text);
+        }
     </style>
 </head>
 <body class="h-full bg-slate-50 text-slate-800 font-sans antialiased transition-colors duration-300" id="body-root">
@@ -82,31 +110,31 @@
 
             <!-- Navigation Links -->
             <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-                <button onclick="switchTab('dashboard')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-indigo-600 bg-indigo-50" data-tab="dashboard">
+                <button onclick="switchTab('dashboard')" class="nav-btn active w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600" data-tab="dashboard">
                     <i class="fa-solid fa-chart-pie w-5 text-center"></i>
                     <span>Dashboard</span>
                 </button>
-                <button onclick="switchTab('students')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900" data-tab="students">
+                <button onclick="switchTab('students')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600" data-tab="students">
                     <i class="fa-solid fa-user-graduate w-5 text-center"></i>
                     <span>Students</span>
                 </button>
-                <button onclick="switchTab('schedule')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900" data-tab="schedule">
+                <button onclick="switchTab('schedule')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600" data-tab="schedule">
                     <i class="fa-solid fa-calendar-days w-5 text-center"></i>
                     <span>Weekly Schedule</span>
                 </button>
-                <button onclick="switchTab('payments')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900" data-tab="payments">
+                <button onclick="switchTab('payments')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600" data-tab="payments">
                     <i class="fa-solid fa-wallet w-5 text-center"></i>
                     <span>Payments</span>
                 </button>
-                <button onclick="switchTab('records')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900" data-tab="records">
+                <button onclick="switchTab('records')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600" data-tab="records">
                     <i class="fa-solid fa-clipboard-list w-5 text-center"></i>
                     <span>Class Records</span>
                 </button>
-                <button onclick="switchTab('reports')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900" data-tab="reports">
+                <button onclick="switchTab('reports')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600" data-tab="reports">
                     <i class="fa-solid fa-chart-line w-5 text-center"></i>
                     <span>Reports & Analysis</span>
                 </button>
-                <button onclick="switchTab('settings')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900" data-tab="settings">
+                <button onclick="switchTab('settings')" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600" data-tab="settings">
                     <i class="fa-solid fa-gear w-5 text-center"></i>
                     <span>Settings</span>
                 </button>
@@ -345,6 +373,13 @@
                         <!-- Filters -->
                         <div class="flex flex-wrap items-center gap-3">
                             <input type="text" id="record-search" oninput="renderClassRecords()" placeholder="Search name/company..." class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <select id="record-status-select" onchange="renderClassRecords()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="all">All Status</option>
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Scheduled">Scheduled</option>
+                            </select>
                             <select id="record-month-select" onchange="renderClassRecords()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
                                 <!-- Populated dynamically -->
                             </select>
@@ -375,12 +410,18 @@
 
                 <!-- 6. REPORTS & ANALYSIS TAB -->
                 <div id="tab-reports" class="tab-content space-y-6">
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between gap-3 flex-wrap">
                         <div>
                             <h3 class="font-bold text-slate-800 text-lg">Reports & Advanced Analysis</h3>
                             <p class="text-xs text-slate-500">Monthly earnings, attendance statistics, and company breakdowns.</p>
                         </div>
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <select id="report-status-select" onchange="renderReports()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="all">All Attendance</option>
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
                             <select id="report-month-select" onchange="renderReports()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
                                 <!-- Populated dynamically -->
                             </select>
@@ -495,10 +536,31 @@
                         <hr class="border-slate-100">
 
                         <!-- Exchange Rate Manager -->
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-base mb-2">Global Exchange Rate Manager (to PHP)</h4>
-                            <p class="text-xs text-slate-500 mb-4">Instantly updates student conversion rates without affecting already marked 'Paid' payments.</p>
-                            <div id="exchange-rates-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="rounded-2xl border border-slate-200 bg-slate-50/40 p-5">
+                            <div class="flex items-center justify-between gap-4 flex-wrap mb-5">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg">PHP exchange rates</h4>
+                                    <p class="text-xs text-slate-500">Rates recalculate pending records only. Paid records retain their locked snapshot.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1.1fr_auto] gap-4 items-end">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2">Currency</label>
+                                    <select id="exchange-rate-currency-select" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        <!-- Populated dynamically -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2">1 unit in PHP</label>
+                                    <input id="exchange-rate-value-input" type="number" step="0.0001" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" value="1">
+                                </div>
+                                <button onclick="saveExchangeRate()" class="px-5 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm rounded-xl shadow-sm transition">
+                                    Save rate
+                                </button>
+                            </div>
+
+                            <div id="exchange-rates-container" class="mt-6 space-y-2 rounded-2xl border border-slate-200 bg-white overflow-hidden">
                                 <!-- Populated dynamically -->
                             </div>
                         </div>
@@ -704,17 +766,68 @@
     <script>
         
         const COUNTRIES_TIMEZONES = [
-            { country: "Japan", timezone: "GMT+9 (JST)", currency: "JPY" },
-            { country: "South Korea", timezone: "GMT+9 (KST)", currency: "KRW" },
-            { country: "China", timezone: "GMT+8 (CST)", currency: "CNY" },
-            { country: "Taiwan", timezone: "GMT+8 (CST)", currency: "TWD" },
-            { country: "Vietnam", timezone: "GMT+7 (ICT)", currency: "VND" },
-            { country: "Philippines", timezone: "GMT+8 (PHT)", currency: "PHP" },
-            { country: "United States", timezone: "GMT-5 (EST)", currency: "USD" },
-            { country: "United Kingdom", timezone: "GMT+0 (GMT)", currency: "GBP" },
-            { country: "Germany", timezone: "GMT+1 (CET)", currency: "EUR" },
+            { country: "Afghanistan", timezone: "GMT+4:30 (AFT)", currency: "AFN" },
+            { country: "Argentina", timezone: "GMT-3 (ART)", currency: "ARS" },
             { country: "Australia", timezone: "GMT+10 (AEST)", currency: "AUD" },
-            { country: "Canada", timezone: "GMT-5 (EST)", currency: "CAD" }
+            { country: "Austria", timezone: "GMT+1 (CET)", currency: "EUR" },
+            { country: "Bahrain", timezone: "GMT+3 (AST)", currency: "BHD" },
+            { country: "Bangladesh", timezone: "GMT+6 (BST)", currency: "BDT" },
+            { country: "Brazil", timezone: "GMT-3 (BRT)", currency: "BRL" },
+            { country: "Canada", timezone: "GMT-5 (EST)", currency: "CAD" },
+            { country: "China", timezone: "GMT+8 (CST)", currency: "CNY" },
+            { country: "Czech Republic", timezone: "GMT+1 (CET)", currency: "CZK" },
+            { country: "Denmark", timezone: "GMT+1 (CET)", currency: "DKK" },
+            { country: "Egypt", timezone: "GMT+2 (EET)", currency: "EGP" },
+            { country: "France", timezone: "GMT+1 (CET)", currency: "EUR" },
+            { country: "Germany", timezone: "GMT+1 (CET)", currency: "EUR" },
+            { country: "Greece", timezone: "GMT+2 (EET)", currency: "EUR" },
+            { country: "Hong Kong", timezone: "GMT+8 (HKT)", currency: "HKD" },
+            { country: "India", timezone: "GMT+5:30 (IST)", currency: "INR" },
+            { country: "Indonesia", timezone: "GMT+7 (WIB)", currency: "IDR" },
+            { country: "Japan", timezone: "GMT+9 (JST)", currency: "JPY" },
+            { country: "Malaysia", timezone: "GMT+8 (MYT)", currency: "MYR" },
+            { country: "Mexico", timezone: "GMT-6 (CST)", currency: "MXN" },
+            { country: "Netherlands", timezone: "GMT+1 (CET)", currency: "EUR" },
+            { country: "New Zealand", timezone: "GMT+12 (NZST)", currency: "NZD" },
+            { country: "Norway", timezone: "GMT+1 (CET)", currency: "NOK" },
+            { country: "Oman", timezone: "GMT+4 (GST)", currency: "OMR" },
+            { country: "Philippines", timezone: "GMT+8 (PHT)", currency: "PHP" },
+            { country: "Poland", timezone: "GMT+1 (CET)", currency: "PLN" },
+            { country: "Portugal", timezone: "GMT+0 (WET)", currency: "EUR" },
+            { country: "Qatar", timezone: "GMT+3 (AST)", currency: "QAR" },
+            { country: "Romania", timezone: "GMT+2 (EET)", currency: "RON" },
+            { country: "Saudi Arabia", timezone: "GMT+3 (AST)", currency: "SAR" },
+            { country: "Singapore", timezone: "GMT+8 (SGT)", currency: "SGD" },
+            { country: "South Korea", timezone: "GMT+9 (KST)", currency: "KRW" },
+            { country: "Spain", timezone: "GMT+1 (CET)", currency: "EUR" },
+            { country: "Sweden", timezone: "GMT+1 (CET)", currency: "SEK" },
+            { country: "Switzerland", timezone: "GMT+1 (CET)", currency: "CHF" },
+            { country: "Taiwan", timezone: "GMT+8 (CST)", currency: "TWD" },
+            { country: "Thailand", timezone: "GMT+7 (ICT)", currency: "THB" },
+            { country: "Turkey", timezone: "GMT+3 (TRT)", currency: "TRY" },
+            { country: "Ukraine", timezone: "GMT+2 (EET)", currency: "UAH" },
+            { country: "United Arab Emirates", timezone: "GMT+4 (GST)", currency: "AED" },
+            { country: "United Kingdom", timezone: "GMT+0 (GMT)", currency: "GBP" },
+            { country: "United States", timezone: "GMT-5 (EST)", currency: "USD" },
+            { country: "Vietnam", timezone: "GMT+7 (ICT)", currency: "VND" }
+        ];
+
+        const ALL_CURRENCIES = [
+            "AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN",
+            "BAM", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD",
+            "BTN", "BWP", "BYN", "BZD", "CAD", "CHF", "CLP", "CNY", "COP", "CRC",
+            "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ETB", "EUR",
+            "FJD", "FKP", "GBP", "GEL", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD",
+            "HKD", "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "INR", "IQD", "IRR",
+            "ISK", "JMD", "JOD", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KWD",
+            "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MDL",
+            "MGA", "MKD", "MMK", "MNT", "MOP", "MRU", "MUR", "MVR", "MWK", "MXN",
+            "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB",
+            "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB",
+            "RWF", "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLL", "SOS",
+            "SRD", "SSP", "STN", "SVC", "SZL", "THB", "TJS", "TMT", "TND", "TOP",
+            "TRY", "TTD", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VND",
+            "VUV", "WST", "XAF", "XCD", "XOF", "XPF", "YER", "ZAR", "ZMW"
         ];
 
         const DEFAULT_EXCHANGE_RATES = {
@@ -728,7 +841,35 @@
             TWD: 1.80,
             VND: 0.0023,
             AUD: 37.50,
-            CAD: 41.20
+            CAD: 41.20,
+            AED: 15.38,
+            AFN: 0.66,
+            ARS: 0.58,
+            BDT: 0.52,
+            BHD: 149.60,
+            BRL: 10.25,
+            CHF: 64.80,
+            CZK: 2.44,
+            DKK: 8.20,
+            EGP: 1.16,
+            HKD: 7.23,
+            IDR: 0.0037,
+            INR: 0.68,
+            KWD: 184.90,
+            MXN: 2.90,
+            MYR: 12.75,
+            NOK: 5.20,
+            NZD: 33.80,
+            OMR: 146.10,
+            PLN: 14.40,
+            QAR: 15.50,
+            RON: 12.45,
+            SAR: 15.05,
+            SEK: 5.58,
+            SGD: 41.80,
+            THB: 1.59,
+            TRY: 1.75,
+            UAH: 1.38
         };
 
         // Default State
@@ -741,9 +882,9 @@
             exchangeRates: { ...DEFAULT_EXCHANGE_RATES },
             currentSelectedWeekStart: "2026-09-21", // Default week of Sep 21 - Sep 27, 2026
             students: [
-                { id: "s1", name: "Tanaka Ken", company: "Native Camp", country: "Japan", timezone: "GMT+9 (JST)", currency: "JPY", rate25: 400, rate50: 800, startDate: "2026-01-10", status: "Active", notes: "Loves business English and pronunciation practice." },
-                { id: "s2", name: "Kim Min-ji", company: "Independent", country: "South Korea", timezone: "GMT+9 (KST)", currency: "KRW", rate25: 8500, rate50: 17000, startDate: "2026-02-15", status: "Active", notes: "Preparing for IELTS speaking test." },
-                { id: "s3", name: "Wang Wei", company: "51Talk", country: "China", timezone: "GMT+8 (CST)", currency: "CNY", rate25: 35, rate50: 70, startDate: "2026-03-01", status: "Active", notes: "Junior student, needs patience with vocabulary." }
+                { id: "s1", name: "Tanaka Ken", company: "Native Camp", country: "Japan", timezone: "GMT+9 (JST)", currency: "JPY", rate25: 400, rate50: 800, startDate: "2026-01-10", status: "Active", notes: "Loves business English and pronunciation practice.", milestones: { 15: true, 20: false, 30: false } },
+                { id: "s2", name: "Kim Min-ji", company: "Independent", country: "South Korea", timezone: "GMT+9 (KST)", currency: "KRW", rate25: 8500, rate50: 17000, startDate: "2026-02-15", status: "Active", notes: "Preparing for IELTS speaking test.", milestones: { 15: true, 20: true, 30: false } },
+                { id: "s3", name: "Wang Wei", company: "51Talk", country: "China", timezone: "GMT+8 (CST)", currency: "CNY", rate25: 35, rate50: 70, startDate: "2026-03-01", status: "Active", notes: "Junior student, needs patience with vocabulary.", milestones: { 15: false, 20: false, 30: false } }
             ],
             classes: [
                 { id: "c1", studentId: "s1", date: "2026-09-21", time: "09:00", type: "Regular", duration: 25, attendance: "Present", paidStatus: "Pending" },
@@ -769,8 +910,19 @@
             }
         }
 
+        function ensureAllExchangeRates() {
+            const mergedKeys = Array.from(new Set([...ALL_CURRENCIES, ...Object.keys(appState.exchangeRates || {})]));
+            const normalized = {};
+            mergedKeys.forEach(code => {
+                const currentValue = appState.exchangeRates && appState.exchangeRates[code];
+                normalized[code] = Number.isFinite(currentValue) ? currentValue : (DEFAULT_EXCHANGE_RATES[code] || 1);
+            });
+            appState.exchangeRates = normalized;
+        }
+
         function saveState() {
             try {
+                ensureAllExchangeRates();
                 localStorage.setItem("esl_teacher_dashboard_state_v2", JSON.stringify(appState));
             } catch (e) {
                 console.error("Error saving state to localStorage:", e);
@@ -780,6 +932,7 @@
         // Initialize on window load
         window.onload = function () {
             loadState();
+            ensureAllExchangeRates();
             initThemeAndFont();
             populateCountryDropdown();
             populateTimeDropdown();
@@ -791,6 +944,7 @@
             updateLiveClock();
 
             // Initial render
+            populateCurrencyDropdown();
             switchTab('dashboard');
             renderAll();
         };
@@ -952,14 +1106,6 @@
                 });
             });
 
-            document.querySelectorAll('.nav-btn, .nav-btn i').forEach(el => {
-                if (el.classList.contains('text-indigo-600')) {
-                    el.style.color = activePalette.accentText;
-                }
-                if (el.classList.contains('bg-indigo-50')) {
-                    el.style.backgroundColor = activePalette.soft;
-                }
-            });
         }
 
         function initThemeAndFont() {
@@ -995,15 +1141,13 @@
             appState.theme = document.getElementById('settings-theme-select').value;
             appState.font = document.getElementById('settings-font-select').value;
 
-            // Gather exchange rates
-            let inputs = document.querySelectorAll('.exchange-rate-input');
-            inputs.forEach(inp => {
-                let cur = inp.dataset.currency;
-                let val = parseFloat(inp.value);
-                if (!isNaN(val)) {
+            if (document.getElementById('exchange-rate-currency-select')) {
+                const cur = document.getElementById('exchange-rate-currency-select').value;
+                const val = parseFloat(document.getElementById('exchange-rate-value-input').value);
+                if (cur && !isNaN(val)) {
                     appState.exchangeRates[cur] = val;
                 }
-            });
+            }
 
             saveState();
             initThemeAndFont();
@@ -1011,21 +1155,31 @@
             showToast("Settings saved successfully!");
         }
 
+        function saveExchangeRate() {
+            const currency = document.getElementById('exchange-rate-currency-select')?.value;
+            const value = parseFloat(document.getElementById('exchange-rate-value-input')?.value);
+            if (!currency || isNaN(value)) {
+                showToast("Please choose a valid currency and value.", "error");
+                return;
+            }
+
+            appState.exchangeRates[currency] = value;
+            saveState();
+            renderExchangeRateManager();
+            showToast(`${currency} rate updated successfully!`);
+        }
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => {
-                el.classList.remove('text-indigo-600', 'bg-indigo-50');
-                el.classList.add('text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-900');
+                const isActive = el.dataset.tab === tabId;
+                el.classList.toggle('active', isActive);
+                el.classList.remove('text-indigo-600', 'bg-indigo-50', 'hover:bg-slate-100', 'hover:text-slate-900');
+                el.classList.toggle('text-slate-600', !isActive);
             });
 
             let targetTab = document.getElementById(`tab-${tabId}`);
             if (targetTab) targetTab.classList.add('active');
-
-            let targetBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
-            if (targetBtn) {
-                targetBtn.classList.remove('text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-900');
-                targetBtn.classList.add('text-indigo-600', 'bg-indigo-50');
-            }
 
             // Topbar title update
             const titles = {
@@ -1048,6 +1202,8 @@
             document.getElementById('global-week-display').innerText = weekLabel;
             document.getElementById('schedule-active-week-badge').innerText = weekLabel;
 
+            populateCurrencyDropdown();
+            populateMonthDropdowns();
             applyThemeStyles();
             renderDashboard();
             renderStudentsList();
@@ -1152,6 +1308,17 @@
             select.innerHTML = COUNTRIES_TIMEZONES.map(ct => `<option value="${ct.country}">${ct.country} (${ct.timezone})</option>`).join('');
         }
 
+        function populateCurrencyDropdown() {
+            let select = document.getElementById('modal-student-currency');
+            if (!select) return;
+            select.innerHTML = ALL_CURRENCIES.map(cur => `<option value="${cur}">${cur}</option>`).join('');
+        }
+
+        function getMilestoneState(student, target) {
+            if (!student || !student.milestones) return false;
+            return !!student.milestones[target];
+        }
+
         function onStudentCountryChange() {
             let country = document.getElementById('modal-student-country').value;
             let found = COUNTRIES_TIMEZONES.find(c => c.country === country);
@@ -1178,6 +1345,9 @@
                     document.getElementById('modal-student-startdate').value = st.startDate;
                     document.getElementById('modal-student-status').value = st.status;
                     document.getElementById('modal-student-notes').value = st.notes || '';
+                    document.getElementById('student-milestone-15').checked = getMilestoneState(st, 15);
+                    document.getElementById('student-milestone-20').checked = getMilestoneState(st, 20);
+                    document.getElementById('student-milestone-30').checked = getMilestoneState(st, 30);
                 }
             } else {
                 document.getElementById('student-modal-title').innerText = "Add New Student";
@@ -1191,6 +1361,9 @@
                 document.getElementById('modal-student-startdate').value = formatDateStr(new Date());
                 document.getElementById('modal-student-status').value = "Active";
                 document.getElementById('modal-student-notes').value = "";
+                document.getElementById('student-milestone-15').checked = false;
+                document.getElementById('student-milestone-20').checked = false;
+                document.getElementById('student-milestone-30').checked = false;
             }
         }
 
@@ -1217,7 +1390,12 @@
                 rate50: parseFloat(document.getElementById('modal-student-rate50').value) || 0,
                 startDate: document.getElementById('modal-student-startdate').value || formatDateStr(new Date()),
                 status: document.getElementById('modal-student-status').value,
-                notes: document.getElementById('modal-student-notes').value.trim()
+                notes: document.getElementById('modal-student-notes').value.trim(),
+                milestones: {
+                    15: document.getElementById('student-milestone-15').checked,
+                    20: document.getElementById('student-milestone-20').checked,
+                    30: document.getElementById('student-milestone-30').checked
+                }
             };
 
             if (id) {
@@ -1256,6 +1434,10 @@
             tbody.innerHTML = filtered.map(st => {
                 let completedCount = appState.classes.filter(c => c.studentId === st.id && c.attendance === 'Present').length;
                 let statusBadge = st.status === 'Active' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-600 border-slate-200';
+                let milestoneBadges = [15, 20, 30].map(target => {
+                    const active = getMilestoneState(st, target);
+                    return `<span class="px-1.5 py-0.5 rounded-full text-[10px] font-semibold ${active ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-400'}">${target}</span>`;
+                }).join('');
                 return `
                     <tr class="hover:bg-slate-50/80 transition">
                         <td class="py-4 px-6 font-bold text-slate-900">
@@ -1268,8 +1450,11 @@
                         <td class="py-4 px-4 text-slate-700 font-bold">${completedCount} classes</td>
                         <td class="py-4 px-4"><span class="px-2.5 py-1 rounded-full text-xs font-semibold border ${statusBadge}">${st.status}</span></td>
                         <td class="py-4 px-6 text-right space-x-2">
-                            <button onclick="openStudentModal('${st.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg transition" title="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
-                            <button onclick="deleteStudent('${st.id}')" class="p-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg transition" title="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
+                            <div class="flex justify-end gap-1 mb-2">${milestoneBadges}</div>
+                            <div class="flex justify-end gap-2">
+                                <button onclick="openStudentModal('${st.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg transition" title="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
+                                <button onclick="deleteStudent('${st.id}')" class="p-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg transition" title="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -1635,33 +1820,43 @@
         }
 
         function populateMonthDropdowns() {
-            let months = [];
-            // Generate last 12 months
-            let d = new Date();
-            for (let i = 0; i < 12; i++) {
-                let y = d.getFullYear();
-                let m = String(d.getMonth() + 1).padStart(2, '0');
-                let val = `${y}-${m}`;
-                let label = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-                months.push({ val, label });
-                d.setMonth(d.getMonth() - 1);
-            }
+            const monthSet = new Map();
+            appState.classes.forEach(c => {
+                const [year, month] = c.date.split('-');
+                const key = `${year}-${month}`;
+                if (!monthSet.has(key)) {
+                    const date = new Date(`${year}-${month}-01T00:00:00`);
+                    monthSet.set(key, date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }));
+                }
+            });
 
-            let html = months.map(mo => `<option value="${mo.val}">${mo.label}</option>`).join('');
-            document.getElementById('record-month-select').innerHTML = html;
-            document.getElementById('report-month-select').innerHTML = html;
+            const months = Array.from(monthSet.entries()).sort((a, b) => a[0] < b[0] ? 1 : -1);
+            const buildHtml = (selectedValue) => {
+                const options = [`<option value="all">All Months</option>`];
+                months.forEach(([value, label]) => {
+                    options.push(`<option value="${value}" ${selectedValue === value ? 'selected' : ''}>${label}</option>`);
+                });
+                return options.join('');
+            };
+
+            const recordSelected = document.getElementById('record-month-select')?.value || 'all';
+            const reportSelected = document.getElementById('report-month-select')?.value || 'all';
+            document.getElementById('record-month-select').innerHTML = buildHtml(recordSelected);
+            document.getElementById('report-month-select').innerHTML = buildHtml(reportSelected);
         }
 
         function renderClassRecords() {
             let search = document.getElementById('record-search').value.toLowerCase();
             let selectedMonth = document.getElementById('record-month-select').value;
+            let selectedStatus = document.getElementById('record-status-select').value;
             let tbody = document.getElementById('records-table-body');
 
             let filtered = appState.classes.filter(c => {
                 let st = appState.students.find(s => s.id === c.studentId);
-                let nameMatch = st ? st.name.toLowerCase().includes(search) || st.company.toLowerCase().includes(search) : false;
-                let monthMatch = selectedMonth ? c.date.startsWith(selectedMonth) : true;
-                return nameMatch && monthMatch;
+                let nameMatch = !search || (st ? st.name.toLowerCase().includes(search) || st.company.toLowerCase().includes(search) : false);
+                let monthMatch = selectedMonth === 'all' || c.date.startsWith(selectedMonth);
+                let statusMatch = selectedStatus === 'all' || c.attendance === selectedStatus;
+                return nameMatch && monthMatch && statusMatch;
             });
 
             if (filtered.length === 0) {
@@ -1689,7 +1884,12 @@
 
         function renderReports() {
             let selectedMonth = document.getElementById('report-month-select').value;
-            let monthClasses = appState.classes.filter(c => c.date.startsWith(selectedMonth));
+            let selectedStatus = document.getElementById('report-status-select').value;
+            let monthClasses = appState.classes.filter(c => {
+                let monthMatch = selectedMonth === 'all' || c.date.startsWith(selectedMonth);
+                let statusMatch = selectedStatus === 'all' || c.attendance === selectedStatus;
+                return monthMatch && statusMatch;
+            });
 
             let monthlyRevenue = 0;
             let totalConducted = monthClasses.filter(c => c.attendance === 'Present').length;
@@ -1722,7 +1922,7 @@
             let breakdownEl = document.getElementById('report-company-breakdown');
             let comps = Object.keys(companyRevenue);
             if (comps.length === 0) {
-                breakdownEl.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No revenue data for this month.</div>`;
+                breakdownEl.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No revenue data for this period.</div>`;
             } else {
                 breakdownEl.innerHTML = comps.map(comp => {
                     let rev = companyRevenue[comp];
@@ -1743,14 +1943,50 @@
         }
 
         function populateExchangeRateManager() {
-            let container = document.getElementById('exchange-rates-container');
-            let currencies = Object.keys(appState.exchangeRates);
-            container.innerHTML = currencies.map(cur => `
-                <div>
-                    <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">${cur} to PHP Rate</label>
-                    <input type="number" step="0.0001" data-currency="${cur}" class="exchange-rate-input w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500" value="${appState.exchangeRates[cur]}">
-                </div>
-            `).join('');
+            const currencySelect = document.getElementById('exchange-rate-currency-select');
+            const valueInput = document.getElementById('exchange-rate-value-input');
+            const currencyCodes = Array.from(new Set([...ALL_CURRENCIES, ...Object.keys(appState.exchangeRates || {})])).sort();
+
+            if (currencySelect) {
+                const currentValue = currencySelect.value || 'PHP';
+                currencySelect.innerHTML = currencyCodes.map(cur => `<option value="${cur}">${cur} - ${cur === 'PHP' ? 'Philippine Peso' : cur}</option>`).join('');
+                currencySelect.value = currencyCodes.includes(currentValue) ? currentValue : 'PHP';
+            }
+
+            if (valueInput) {
+                const selectedCurrency = currencySelect ? currencySelect.value : 'PHP';
+                valueInput.value = appState.exchangeRates?.[selectedCurrency] ?? DEFAULT_EXCHANGE_RATES[selectedCurrency] ?? 1;
+            }
+
+            renderExchangeRateManager();
+        }
+
+        function renderExchangeRateManager() {
+            const container = document.getElementById('exchange-rates-container');
+            if (!container) return;
+
+            const currencyCodes = Array.from(new Set([...ALL_CURRENCIES, ...Object.keys(appState.exchangeRates || {})])).sort();
+            const rows = currencyCodes.map(cur => {
+                const value = Number(appState.exchangeRates?.[cur] ?? DEFAULT_EXCHANGE_RATES[cur] ?? 1);
+                return `
+                    <button type="button" data-currency="${cur}" class="exchange-rate-row flex items-center justify-between w-full px-5 py-4 border-b border-slate-100 text-left hover:bg-slate-50 transition">
+                        <span class="font-bold text-slate-700 text-xl tracking-wide">${cur}</span>
+                        <span class="text-base font-semibold text-slate-600">${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 })} PHP</span>
+                    </button>
+                `;
+            }).join('');
+
+            container.innerHTML = rows;
+            container.querySelectorAll('.exchange-rate-row').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const selected = btn.dataset.currency;
+                    const currentValue = appState.exchangeRates?.[selected] ?? DEFAULT_EXCHANGE_RATES[selected] ?? 1;
+                    const currencySelect = document.getElementById('exchange-rate-currency-select');
+                    const valueInput = document.getElementById('exchange-rate-value-input');
+                    if (currencySelect) currencySelect.value = selected;
+                    if (valueInput) valueInput.value = currentValue;
+                });
+            });
         }
 
         // Inspirational Quote Modal Edit
